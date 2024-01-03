@@ -144,6 +144,52 @@ Java, Spring Boot, JPA, Spring MVC, Angular, PostgreSQL, Arquitectura de Microse
 
 -	Subir la implementación del caso a un repositorio público y compartir enlace
 
+Para la creación de SQL:
+CREATE TABLE cliente (
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(100),
+    ciudad_origen VARCHAR(100),
+ciudad_actual VARCHAR(100)
+);
+
+CREATE TABLE cuenta (
+    id SERIAL PRIMARY KEY,
+    tipo VARCHAR(50) CHECK (tipo IN ('ahorros', 'corriente')),
+    saldo DECIMAL(15, 2) DEFAULT 0.0,
+    cliente_id INT REFERENCES cliente(id)
+);
+
+CREATE TABLE transaccion (
+    id SERIAL PRIMARY KEY,
+    tipo VARCHAR(50) CHECK (tipo IN ('consignacion', 'retiro')),
+    monto DECIMAL(15, 2),
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    cuenta_id INT REFERENCES cuenta(id)
+);
+
+
+
+    -- Insertar clientes
+INSERT INTO cliente (nombre, ciudad_origen, ciudad_actual) VALUES
+    ('Cliente A', 'Ciudad1', 'Ciudad1'),
+    ('Cliente B', 'Ciudad2', 'Ciudad2'),
+    ('Cliente C', 'Ciudad3', 'Ciudad3');
+
+-- Insertar cuentas
+INSERT INTO cuenta (tipo, saldo, cliente_id) VALUES
+    ('ahorros', 1000.00, 1),
+    ('corriente', 500.00, 2),
+    ('ahorros', 1500.00, 3);
+
+-- Insertar transacciones
+INSERT INTO transaccion (tipo, monto, cuenta_id) VALUES
+    ('consignacion', 500.00, 1),
+    ('retiro', 200.00, 2),
+    ('consignacion', 1000.00, 3),
+    ('retiro', 300.00, 1),
+    ('retiro', 1500.00, 3);
+
+
 
 
 
