@@ -1,0 +1,24 @@
+<div class="col-md-6 offset-md-3">
+  <h3 class="text-center">Registro de clientes</h3>
+  <form (ngSubmit)="onsubmit"></form>
+  <div class="form-group">
+    <label>Nombre : </label>
+    <input type="text"
+    class="form-control"
+    id="nombre"
+    [(ngModel)]="cliente.nombre"
+    name = "nombre"
+    required
+    #nombre = "ngModel">
+  </div>
+  <div class="form-group">
+    <label>ciudad origen : </label>
+    <input type="text"
+           class="form-control"
+           id="ciudad-origen"
+           [(ngModel)]="cliente.ciudad_origen"
+           name = "nombre">
+  </div>
+
+  <button class="btn btn-success">Guardar</button>
+</div>

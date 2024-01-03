@@ -1,13 +1,16 @@
 package com.bluesoft.bluesoftbank.controller;
 
+import com.bluesoft.bluesoftbank.exceptions.ResourceNotFoundException;
 import com.bluesoft.bluesoftbank.model.Cliente;
 import com.bluesoft.bluesoftbank.model.Transaccion;
+import com.bluesoft.bluesoftbank.repository.ClienteRepository;
 import com.bluesoft.bluesoftbank.service.ClienteService;
 import com.bluesoft.bluesoftbank.utils.UtilidadesPruebas;
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import com.bluesoft.bluesoftbank.repository.TransaccionRepository;
 
 import java.util.Comparator;
@@ -17,6 +20,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/clientes")
+@CrossOrigin(origins = "http://localhost:4200/")
 public class ClienteController {
 
     @Autowired
@@ -24,6 +28,9 @@ public class ClienteController {
 
     @Autowired
     private TransaccionRepository transaccionRepository;
+
+    @Autowired
+    private ClienteRepository clienteRepository;
 
 
     @GetMapping
@@ -57,6 +64,39 @@ public class ClienteController {
             throw new RuntimeException("Error al obtener clientes con más transacciones en el mes", e);
         }
     }
+
+
+    @PostMapping("/clientes")
+    public Cliente guardarCliente(@RequestBody Cliente cliente){
+        return clienteRepository.save(cliente);
+    }
+
+    @GetMapping("/clientes/{id}")
+    public ResponseEntity<Cliente> obtenerClientePorId(@PathVariable Long id){
+        Cliente cliente = clienteRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("No existe el cliente con el ID : " + id));
+        return ResponseEntity.ok(cliente);
+    }
+
+    @PutMapping("/clientes/{id}")
+    public ResponseEntity<Cliente> actualizarEmpleado(@PathVariable Long id,@RequestBody Cliente cliente){
+        Cliente clientes = clienteRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("No existe el empleado con el ID : " + id));
+
+        clientes.setNombre(cliente.getNombre());
+        clientes.setCiudadOrigen(cliente.getCiudadOrigen());
+        clientes.setCiudadActual(cliente.getCiudadActual());
+
+        Cliente clienteActualizado = clienteRepository.save(cliente);
+        return ResponseEntity.ok(clienteActualizado);
+    }
+
+
+    @PostMapping("/transacciones")
+    public Transaccion guardarTransaccion(@RequestBody Transaccion transaccion){
+        return transaccionRepository.save(transaccion);
+    }
+
 
 }
 

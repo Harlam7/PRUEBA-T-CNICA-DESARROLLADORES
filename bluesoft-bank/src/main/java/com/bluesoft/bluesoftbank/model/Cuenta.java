@@ -1,6 +1,7 @@
 package com.bluesoft.bluesoftbank.model;
 
-import javax.persistence.*;
+//import javax.persistence.*;
+import jakarta.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
