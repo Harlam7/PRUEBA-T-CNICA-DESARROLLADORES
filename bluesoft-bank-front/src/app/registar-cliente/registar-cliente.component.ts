@@ -15,7 +15,7 @@ import { Router } from "@angular/router";
 })
 export class RegistarClienteComponent implements OnInit{
 
-  cliente: Cliente=new Cliente();
+  cliente: Cliente = new Cliente(0, "Nombre", "Ciudad Origen", "Ciudad Actual");
   constructor(private clienteService:ClienteService, private router:Router) {}
 
   ngOnInit() {

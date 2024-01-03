@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root',
 })
 export class CuentaService {
+
   private saldo: number = 0;
   private movimientos: string[] = [];
   private extractos: string[] = [];
@@ -22,10 +25,21 @@ export class CuentaService {
     }
   }
 
-  consultarSaldo(): number {
-    return this.saldo;
+
+  // Consultar saldo
+  private apiURL = "http://localhost:8080/cuenta";
+  constructor(private http: HttpClient) {}
+
+  consultarSaldo(id: number): Observable<number>{
+    const url = `${this.apiURL}/${id}/saldo`;
+      return this.http.get<number>(url);
   }
 
+
+
+
+
+/*
   obtenerMovimientosRecientes(): string[] {
     return this.movimientos.slice(-5); // Obtener los últimos 5 movimientos
   }
@@ -75,4 +89,6 @@ export class CuentaService {
       return saldo + movimiento.cantidad;
     }, 0);
   }
+ */
+
 }

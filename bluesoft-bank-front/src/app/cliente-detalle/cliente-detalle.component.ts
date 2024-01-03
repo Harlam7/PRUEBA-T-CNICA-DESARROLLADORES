@@ -19,7 +19,7 @@ export class ClienteDetalleComponent implements OnInit {
   }
   ngOnInit():void {
     this.id=this.route.snapshot.params['id'];
-    this.cliente=new Cliente();
+    this.cliente=new Cliente(this.id, "", "","");
     this.clienteService.obtenerClientePorId(this.id).subscribe(dato=>{
       this.cliente=dato;
     });

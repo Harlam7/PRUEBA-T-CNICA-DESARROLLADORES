@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MovimientosComponent } from './movimientos.component';
+import { GenerarExtractoComponent } from './generar-extracto.component';
 
-describe('MovimientosComponent', () => {
-  let component: MovimientosComponent;
-  let fixture: ComponentFixture<MovimientosComponent>;
+describe('GenerarExtractoComponent', () => {
+  let component: GenerarExtractoComponent;
+  let fixture: ComponentFixture<GenerarExtractoComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MovimientosComponent]
+      imports: [GenerarExtractoComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(MovimientosComponent);
+    fixture = TestBed.createComponent(GenerarExtractoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
