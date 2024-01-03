@@ -104,7 +104,44 @@ También se deben generar reportes en tiempo real como:
 En base a lo anterior, por favor dar respuesta a los siguientes puntos:
 
 -	Cree un diagrama de clases que modelo el problema, identifica los elementos principales y sus relaciones.
+
++------------------------------------+
+|              Cliente               |
++------------------------------------+
+| id: int                            |
+| nombre: string                     |
+| ciudadOrigen: string               |
+| ciudadActual: string               |
+| cuentas: List<Cuenta>              |
++------------------------------------+
+| consultarSaldo(): Decimal          |
+| consultarMovimientos(): List<Transaccion>|
+| generarExtracto(mes: int): String   |
++------------------------------------+
+
+          |                                   |
+          |                                   |
+          |                                   |
+          v                                   v
+
++------------------------------------+    +------------------------------------+
+|              Cuenta                |    |           Transaccion              |
++------------------------------------+    +------------------------------------+
+| id: int                            |    | id: int                            |
+| tipo: string                       |    | tipo: string                       |
+| saldo: Decimal                     |    | monto: Decimal                     |
+| cliente: Cliente                   |    | fecha: Timestamp                   |
+| transacciones: List<Transaccion>    |    | cuenta: Cuenta                     |
++------------------------------------+    +------------------------------------+
+| realizarConsignacion(monto: Decimal): void                                |
+| realizarRetiro(monto: Decimal): void                                      |
++------------------------------------+
+
+
 -	Qué arquitectura y tecnologías usaría para resolver el caso Bluesoft Bank
+
+Java, Spring Boot, JPA, Spring MVC, Angular, PostgreSQL, Arquitectura de Microservicios
+
 -	Subir la implementación del caso a un repositorio público y compartir enlace
 
 
